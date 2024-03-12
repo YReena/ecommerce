@@ -5,8 +5,13 @@ const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const app = express();
 app.use(cookieParser());
-app.use(express.json());
-app.use(bodyParser.urlencoded({extended:true}));
+
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ 
+    limit: '50mb', 
+    extended: true 
+}));
+
 app.use(fileUpload());
 
 

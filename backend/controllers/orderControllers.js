@@ -53,8 +53,8 @@ exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
 
 // get logged in user  Orders
 exports.myOrders = catchAsyncErrors(async (req, res, next) => {
-  const orders = await Order.find({ user: req.user._id });
 
+  const orders = await Order.find({ user: req.user._id });
   res.status(200).json({
     success: true,
     orders,
@@ -81,6 +81,7 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
 
 // update Order Status -- Admin
 exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
+  console.log(req.body.status);
   const order = await Order.findById(req.params.id);
 
   if (!order) {
@@ -109,11 +110,13 @@ exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
 });
 
 async function updateStock(id, quantity) {
+  console.log(quantity);
   const product = await Product.findById(id);
-  console.log(reena);
+  console.log("chitti");
   product.stock -= quantity;
 
   await product.save({ validateBeforeSave: false });
+  console.log(product.stock);
 }
 
 // delete Order -- Admin
